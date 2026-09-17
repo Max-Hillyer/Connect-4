@@ -23,4 +23,13 @@ for y in range(board_height):
         row.append(cell)
     cells.append(row)
 
+color = 'red'
+@on_click
+def drop_chip():
+    global color
+    for y in range(board_height):
+        for x in range(board_width):
+             if cells[y][x].is_obj_over(mouse.x, mouse.y) and (cells[y][x]).color == 'gray':
+                 (cells[y][x]).color = color
+                 color = 'yellow' if color == 'red' else 'red'
 run(width=400, height=400, caption="My Graphics App")

@@ -21,7 +21,7 @@ python main.py
 - [X] make a running version of the game 
 - [ ] make game graphics better
     - [ ] add better victory screen
-- [ ] add restart functionality
+- [X] add restart functionality
 - [X] add quit functionality
 
 ## Graphics

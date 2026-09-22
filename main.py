@@ -3,21 +3,24 @@ from simple_graphics import *
 board_height = 6
 board_width = 7 
 chip_size = 15 
-
-cells = []
-for y in range(board_height):
-    row = [] 
-    for x in range(board_width):
-        cell = Circle(
-            x * 50 + 30,
-            y * 50 + 30,
-            radius = chip_size,
-            color = 'gray'
-        )
-        row.append(cell)
-    cells.append(row)
-
+won = False
 color = 'red'
+
+def generate_board():
+    cells = []
+    for y in range(board_height):
+        row = [] 
+        for x in range(board_width):
+            cell = Circle(
+                x * 50 + 30,
+                y * 50 + 30,
+                radius = chip_size,
+                color = 'gray'
+            )
+            row.append(cell)
+        cells.append(row)
+    return cells
+cells = generate_board()
 
 def check_board():
     for current_color in ['yellow', 'red']:
@@ -36,12 +39,17 @@ def check_board():
                     return current_color
     return 0
 
-won = False
-
 @on_press('q')
 def quit():
     exit(0)
-    
+
+@on_press('r')
+def restart():
+    global cells
+    global color 
+    color = 'red'
+    cells = generate_board()
+
 @on_click
 def drop_chip():
     global color
@@ -66,4 +74,4 @@ def drop_chip():
                         return
                 return
                  
-run(width=360, height=330, caption="My Graphics App")
+run(width=360, height=330, caption="Connect 4")

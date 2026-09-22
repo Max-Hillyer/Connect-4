@@ -23,3 +23,6 @@ python main.py
     - [ ] add better victory screen
 - [ ] add restart functionality
 - [ ] add quit functionality
+
+## Graphics
+If you're curious about the amazing graphics library used in this project, check out [the repo](https://github.com/Max-Hillyer/Simple_graphics/)

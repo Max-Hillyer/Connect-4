@@ -1,22 +1,16 @@
 from simple_graphics import *
-import random
 
 board_height = 6
 board_width = 7 
-chip_size = 12 
-
-def draw_board(board: list[list]):
-    for x in range(len(board)):
-        for y in range(len(x)):
-            c = Circle(x,y, radius = 20, color = 'red')
+chip_size = 15 
 
 cells = []
 for y in range(board_height):
     row = [] 
     for x in range(board_width):
         cell = Circle(
-            x * 30 + 30,
-            y * 30 + 30,
+            x * 50 + 30,
+            y * 50 + 30,
             radius = chip_size,
             color = 'gray'
         )
@@ -44,6 +38,10 @@ def check_board():
 
 won = False
 
+@on_press('q')
+def quit():
+    exit(0)
+    
 @on_click
 def drop_chip():
     global color
@@ -61,11 +59,11 @@ def drop_chip():
                         cells[i][x].color = player
                         winner = check_board()
                         if winner != 0:
-                            Text(0, 0, f'{winner} WINS', winner)
+                            Text(0, 0, f'{winner.upper()} WINS', winner)
                             won = True
                         else:
                             color = 'yellow' if player == 'red' else 'red'
                         return
                 return
                  
-run(width=400, height=400, caption="My Graphics App")
+run(width=360, height=330, caption="My Graphics App")

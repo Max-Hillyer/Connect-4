@@ -1,4 +1,4 @@
-from simple_graphics import Circle, on_press, on_click, mouse, Text, run, clear_screen
+from simple_graphics import *
 #this import may be slow the first time, the doofus behind the library is probably working 
 #on ways to speed it up #https://github.com/Max-Hillyer/Simple_graphics
 
@@ -7,6 +7,7 @@ board_width = 7
 chip_size = 15 
 won = False
 color = 'red'
+set_bg('black')
 
 def generate_board():
     cells = []

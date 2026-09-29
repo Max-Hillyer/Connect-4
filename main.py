@@ -1,4 +1,6 @@
-from simple_graphics import *
+from simple_graphics import Circle, on_press, on_click, mouse, Text, run
+#this import may be slow the first time, the doofus behind the library is probably working 
+#on ways to speed it up
 
 board_height = 6
 board_width = 7 

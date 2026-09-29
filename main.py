@@ -1,6 +1,6 @@
-from simple_graphics import Circle, on_press, on_click, mouse, Text, run
+from simple_graphics import Circle, on_press, on_click, mouse, Text, run, clear_screen
 #this import may be slow the first time, the doofus behind the library is probably working 
-#on ways to speed it up
+#on ways to speed it up #https://github.com/Max-Hillyer/Simple_graphics
 
 board_height = 6
 board_width = 7 
@@ -49,7 +49,10 @@ def quit():
 def restart():
     global cells
     global color 
+    global won 
+    won = False
     color = 'red'
+    clear_screen()
     cells = generate_board()
 
 @on_click

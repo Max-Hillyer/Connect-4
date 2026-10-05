@@ -1,5 +1,7 @@
 # Connect 4
-
+## Note about Python versions 
+The graphics library this project is built on uses Pygame, which does not yet support Python 3.14. 
+For this project, use of Python >= 3.9 and < 3.14 is necessary, and Python 3.12 or 3.13 is recommended. 
 ## Usage
 
 Clone the repo

@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from simple_graphics import *
 #this import may be slow the first time, the doofus behind the library is probably working 
 #on ways to speed it up #https://github.com/Max-Hillyer/Simple_graphics
@@ -5,8 +6,6 @@ from simple_graphics import *
 board_height = 6
 board_width = 7 
 chip_size = 15 
-won = False
-color = 'red'
 set_bg('black')
 
 def generate_board():
@@ -23,22 +22,30 @@ def generate_board():
             row.append(cell)
         cells.append(row)
     return cells
-cells = generate_board()
+
+
+@dataclass
+class GameState:
+    cells: list[list[Circle]]
+    color: str
+    won: bool
+
+gameState = GameState(generate_board(), "red", False)
 
 def check_board():
     for current_color in ['yellow', 'red']:
         for r in range(board_height):
             for c in range(board_width):
-                if cells[r][c].color != current_color:
+                if gameState.cells[r][c].color != current_color:
                     continue
 
-                if c + 3 < board_width and all(cells[r][c + i].color == current_color for i in range(4)):
+                if c + 3 < board_width and all(gameState.cells[r][c + i].color == current_color for i in range(4)):
                     return current_color
-                if r + 3 < board_height and all(cells[r + i][c].color == current_color for i in range(4)):
+                if r + 3 < board_height and all(gameState.cells[r + i][c].color == current_color for i in range(4)):
                     return current_color
-                if r + 3 < board_height and c + 3 < board_width and all(cells[r + i][c + i].color == current_color for i in range(4)):
+                if r + 3 < board_height and c + 3 < board_width and all(gameState.cells[r + i][c + i].color == current_color for i in range(4)):
                     return current_color
-                if r - 3 >= 0 and c + 3 < board_width and all(cells[r - i][c + i].color == current_color for i in range(4)):
+                if r - 3 >= 0 and c + 3 < board_width and all(gameState.cells[r - i][c + i].color == current_color for i in range(4)):
                     return current_color
     return 0
 
@@ -48,35 +55,29 @@ def quit():
 
 @on_press('r')
 def restart():
-    global cells
-    global color 
-    global won 
-    won = False
-    color = 'red'
+    gameState.won = False
+    gameState.color = 'red'
     clear_screen()
-    cells = generate_board()
+    gameState.cells = generate_board()
 
 @on_click
 def drop_chip():
-    global color
-    global won
-
-    if won:
+    if gameState.won:
         return
 
     for y in range(board_height):
         for x in range(board_width):
-            if cells[y][x].is_obj_over(mouse.x, mouse.y) and cells[y][x].color == 'gray':
+            if gameState.cells[y][x].is_obj_over(mouse.x, mouse.y) and gameState.cells[y][x].color == 'gray':
                 for i in range(board_height - 1, -1, -1):
-                    if cells[i][x].color == 'gray':
-                        player = color
-                        cells[i][x].color = player
+                    if gameState.cells[i][x].color == 'gray':
+                        player = gameState.color
+                        gameState.cells[i][x].color = player
                         winner = check_board()
                         if winner != 0:
                             Text(0, 0, f'{winner.upper()} WINS', winner)
-                            won = True
+                            gameState.won = True
                         else:
-                            color = 'yellow' if player == 'red' else 'red'
+                            gameState.color = 'yellow' if player == 'red' else 'red'
                         return
                 return
                  

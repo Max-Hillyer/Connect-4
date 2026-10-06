@@ -32,8 +32,6 @@ class GameState:
 
 gameState = GameState(generate_board(), "red", False)
 
-print(gameState)
-
 def check_board():
     for current_color in ['yellow', 'red']:
         for r in range(board_height):
